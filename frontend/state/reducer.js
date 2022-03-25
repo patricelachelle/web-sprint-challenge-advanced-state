@@ -1,8 +1,17 @@
 // ❗ You don't need to add extra reducers to achieve MVP
 import { combineReducers } from 'redux'
+import {
+  MOVE_CLOCKWISE,
+  MOVE_COUNTERCLOCKWISE,
+  SELECT_ANSWER,
+  SET_MESSAGE,
+  SET_QUIZ,
+  INPUT_CHANGE,
+  RESET_FORM
+} from './action-creators'
 
 const initialWheelState = 0
-function wheel(state = initialWheelState, action) {
+function wheel(state = initialWheelState, action) { 
   return state
 }
 
