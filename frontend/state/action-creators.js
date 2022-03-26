@@ -1,10 +1,13 @@
 // ❗ You don't need to add extra action creators to achieve MVP
 
+import * as types from './action-types';
+import axios from "axios";
+
 export const MOVE_CLOCKWISE = 'MOVE_CLOCKWISE';
 export const MOVE_COUNTERCLOCKWISE = 'MOVE_COUNTERCLOCKWISE';
-export const SELECT_ANSWER = 'SELECT_ANSWER';
-export const SET_MESSAGE = 'SET_MESSAGE';
-export const SET_QUIZ = 'SET_QUIZ';
+export const SET_SELECTED_ANSWER = 'SET_SELECTED_ANSWER';
+export const SET_INFO_MESSAGE = 'SET_INFO_MESSAGE';
+export const SET_QUIZ_INTO_STATE = 'SET_QUIZ_INTO_STATE';
 export const INPUT_CHANGE = 'INPUT_CHANGE';
 export const RESET_FORM = 'RESET_FORM'
 
@@ -17,19 +20,19 @@ export function moveCounterClockwise() {
 }
 
 export function selectAnswer() {
-  return({type:SELECT_ANSWER, payload:answer_id})
+  return({type:SET_SELECTED_ANSWER, payload:answer_id})
 }
 
 export function setMessage() { 
-  return({type:SET_MESSAGE})
+  return({type:SET_INFO_MESSAGE})
 }
 
 export function setQuiz() { 
-  return({type:SET_QUIZ, payload:quiz_id})
+  return({type:types.SET_QUIZ_INTO_STATE, payload:quiz_id})
 }
 
-export function inputChange() { 
-  return({type:INPUT_CHANGE, payload:question_text, true_answer_text, false_answer_text})
+export function inputChange(value) { 
+  return({type:INPUT_CHANGE, payload:value})
 }
 
 export function resetForm() { 
@@ -39,8 +42,14 @@ export function resetForm() {
 // ❗ Async action creators
 export function fetchQuiz() {
   return function (dispatch) {
-    dispatch(setMessage())
-    dispatch(setQuiz(quiz_id))
+    axios.get('http://localhost:9000/api/quiz/next')
+      .then(res => {
+        debugger
+      })
+      .catch(err => {
+        debugger
+      })
+  
     // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
     // On successful GET:
     // - Dispatch an action to send the obtained quiz to its state

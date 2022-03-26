@@ -1,6 +1,8 @@
 import React from 'react'
+import * as actionCreators from '../state/action-creators'
+import { connect } from 'react-redux'
 
-export default function Quiz(props) {
+export function Quiz(props) {
   return (
     <div id="wrapper">
       {
@@ -32,3 +34,4 @@ export default function Quiz(props) {
     </div>
   )
 }
+export default connect(state => state, actionCreators)(Quiz)
